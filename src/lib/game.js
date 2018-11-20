@@ -13,21 +13,26 @@ let correct = 0; // fjöldi réttra svara í núverandi leik
 let currentProblem; // spurning sem er verið að sýna
 let newQuestion; // býr til nýja spurningu
 let showTime; // sýnir tímann sem er eftir
-let svara;
 let input;
+let resultNos; // upplýsingar um leik
 
 /**
  * Klárar leik. Birtir result og felur problem. Reiknar stig og birtir í result.
  */
 function finish() {
-  const text = `Þú svaraðir ${correct} rétt af ${total} spurningum og fékkst ${points} stig fyrir. Skráðu þig á stigatöfluna!`;
-
-  // todo útfæra
   result = document.getElementsByClassName('result');
   result[0].classList.remove('result--hidden');
 
   problem = document.getElementsByClassName('problem');
   problem[0].classList.add('problem--hidden');
+
+  const points = 0;
+  const text = `Þú svaraðir ${correct} rétt af ${total} spurningum og fékkst ${points} stig fyrir. Skráðu þig á stigatöfluna!`;
+  resultNos = document.getElementsByClassName('result__text');
+  resultNos[0].textContent = text;
+
+  // todo
+  input = document.getElementById('name');
 }
 
 /**
@@ -41,7 +46,6 @@ function finish() {
  * @param {number} current Sekúndur eftir
  */
 function tick(current) {
-  // todo uppfæra tíma á síðu
   showTime = document.getElementsByClassName('problem__timer');
   showTime[0].textContent = current;
 
@@ -86,6 +90,9 @@ function start() {
 
   setTimeout(tick(playTime), 1000);
 
+  // eslint-disable-next-line no-console
+  console.log('takkin virkar ekki, þegar timinn er liðinn, birtist result');
+
   showQuestion();
 }
 
@@ -95,46 +102,20 @@ function start() {
  *
  * @param {object} e Event þegar spurningu svarað
  */
+// eslint-disable-next-line no-unused-vars
 function onSubmit(e) {
   e.preventDefault();
 
-  // todo útfæra
+  input = e.target.querySelector('.problem__input');
   /*
-  svara = document.getElementById('svar');
-  svara.addEventListener('click', () => {
-    console.log('clicke');
-   // input = document.getElementById('input').value;
-    //console.log(input);
+  input[0].addEventlistener('submit', () => {
+    console.log()
   });
 
-  svara = document.getElementsByClassName('svarButton');
-  svara[0].addEventListener('click', () => {
-    console.log("clicked");
-    //input = document.getElementsByClassName('problem__input');
-  });
-  input = document.getElementsByClassName('problem__input');
-  console.log(input[0].input);
+  input[0].value = '';
 
-  svara = document.querySelector('button');
-  svara.addEventListener('click', () => {
-    result = document.querySelector('input');
-  });*/
-
-  input = document.querySelector('input');
-
-  input.addEventListener('click', () => {
-    const svar = e;
-    console.log(svar);
-  });
-
-  svara = document.getElementById('svar');
-  svara.addEventListener('click', (e) => {
-    //debugger
-    console.log('clicke');
-    showQuestion();
-  });
-  
-
+  console.log(input[0].value);
+  */
 }
 
 /**
@@ -142,14 +123,15 @@ function onSubmit(e) {
  *
  * @param {*} e Event þegar stig eru skráð
  */
+// eslint-disable-next-line no-unused-vars
 function onSubmitScore(e) {
   e.preventDefault();
 
   // todo útfæra
 
-  //result.classList.add('result--hidden');
-  //problem.classList.add('problem--hidden');
-  //startButton.classList.remove('button--hidden');
+  result.classList.add('result--hidden');
+  problem.classList.add('problem--hidden');
+  startButton.classList.remove('button--hidden');
 }
 
 /**
@@ -160,21 +142,8 @@ function onSubmitScore(e) {
 export default function init(_playTime) {
   playTime = _playTime;
 
-  // todo útfæra
-
-  // útfæra 'Byrja leik' takkann
-
-  startButton = document.getElementById('startButton');
+  startButton = document.querySelector('.start');
   startButton.addEventListener('click', () => {
     start();
   });
-
-  /*
-  startButton = document.querySelector('button');
-  startButton.addEventListener('click', () => {
-    start();
-  });
-  
-  */
-
 }
