@@ -13,6 +13,8 @@ let correct = 0; // fjöldi réttra svara í núverandi leik
 let currentProblem; // spurning sem er verið að sýna
 let newQuestion; // býr til nýja spurningu
 let showTime; // sýnir tímann sem er eftir
+let svara;
+let input;
 
 /**
  * Klárar leik. Birtir result og felur problem. Reiknar stig og birtir í result.
@@ -21,6 +23,11 @@ function finish() {
   const text = `Þú svaraðir ${correct} rétt af ${total} spurningum og fékkst ${points} stig fyrir. Skráðu þig á stigatöfluna!`;
 
   // todo útfæra
+  result = document.getElementsByClassName('result');
+  result[0].classList.remove('result--hidden');
+
+  problem = document.getElementsByClassName('problem');
+  problem[0].classList.add('problem--hidden');
 }
 
 /**
@@ -92,10 +99,42 @@ function onSubmit(e) {
   e.preventDefault();
 
   // todo útfæra
+  /*
+  svara = document.getElementById('svar');
+  svara.addEventListener('click', () => {
+    console.log('clicke');
+   // input = document.getElementById('input').value;
+    //console.log(input);
+  });
 
+  svara = document.getElementsByClassName('svarButton');
+  svara[0].addEventListener('click', () => {
+    console.log("clicked");
+    //input = document.getElementsByClassName('problem__input');
+  });
+  input = document.getElementsByClassName('problem__input');
+  console.log(input[0].input);
 
+  svara = document.querySelector('button');
+  svara.addEventListener('click', () => {
+    result = document.querySelector('input');
+  });*/
 
-  showQuestion();
+  input = document.querySelector('input');
+
+  input.addEventListener('click', () => {
+    const svar = e;
+    console.log(svar);
+  });
+
+  svara = document.getElementById('svar');
+  svara.addEventListener('click', (e) => {
+    //debugger
+    console.log('clicke');
+    showQuestion();
+  });
+  
+
 }
 
 /**
@@ -108,9 +147,9 @@ function onSubmitScore(e) {
 
   // todo útfæra
 
-  result.classList.add('result--hidden');
-  problem.classList.add('problem--hidden');
-  startButton.classList.remove('button--hidden');
+  //result.classList.add('result--hidden');
+  //problem.classList.add('problem--hidden');
+  //startButton.classList.remove('button--hidden');
 }
 
 /**
@@ -124,8 +163,18 @@ export default function init(_playTime) {
   // todo útfæra
 
   // útfæra 'Byrja leik' takkann
-  startButton = document.getElementsByClassName('start button');
-  startButton[0].addEventListener('click', () => {
+
+  startButton = document.getElementById('startButton');
+  startButton.addEventListener('click', () => {
     start();
   });
+
+  /*
+  startButton = document.querySelector('button');
+  startButton.addEventListener('click', () => {
+    start();
+  });
+  
+  */
+
 }
